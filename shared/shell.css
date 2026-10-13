@@ -1,0 +1,193 @@
+/* Tools Profertil — lo que comparten las tres herramientas.
+   Se carga DESPUÉS del styles.css de cada una: acá se empareja todo lo que
+   tiene que quedar en el mismo lugar al pasar de una a otra (barra lateral,
+   selector de herramienta, crédito). */
+
+:root {
+  --shell-pad: 22px;
+  --shell-sidebar: 340px;
+  --dock-height: 50px;
+  /* Alto que el contenido deja libre abajo para el selector */
+  --dock-band: calc(var(--shell-pad) + var(--dock-height) + 16px);
+  --shell-ink: #06204f;
+  --shell-marfil: #FFFEEF;
+}
+
+/* ---------- Pasar de una herramienta a otra ---------- */
+/* Cada herramienta es una página; el navegador funde una con otra y deja
+   quietos la barra lateral, el selector y el crédito. */
+@view-transition { navigation: auto; }
+
+.sidebar { view-transition-name: tools-sidebar; }
+.tools-dock { view-transition-name: tools-dock; }
+.tools-dock a[aria-current="page"] { view-transition-name: tools-active; }
+.bong-credit { view-transition-name: tools-credit; }
+
+::view-transition-old(root),
+::view-transition-new(root) { animation-duration: 0.28s; }
+::view-transition-group(tools-active) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- Selector de herramienta ---------- */
+.tools-dock {
+  position: fixed;
+  left: 50%;
+  bottom: var(--shell-pad);
+  z-index: 60;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: var(--dock-height);
+  padding: 5px;
+  border-radius: 999px;
+  background: var(--shell-ink);
+  font-family: "DM Sans", sans-serif;
+}
+.tools-dock a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+  padding: 0 18px 0 14px;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+.tools-dock a:hover { color: #fff; background: rgba(255, 255, 255, 0.1); }
+.tools-dock a[aria-current="page"] {
+  background: var(--shell-marfil);
+  color: var(--shell-ink);
+}
+.tools-dock a:focus-visible { outline: 2px solid #4086FF; outline-offset: 2px; }
+.tools-dock svg { width: 18px; height: 18px; flex: 0 0 auto; }
+
+/* ---------- Crédito ---------- */
+.bong-credit {
+  right: var(--shell-pad);
+  bottom: calc(var(--shell-pad) + 7px);
+}
+
+/* ---------- Encabezado de la barra lateral, igual en las tres ---------- */
+.sidebar .eyebrow { color: rgba(6, 32, 79, 0.66); }
+
+/* =====================================================================
+   Color e Íconos (misma estructura: .app > .sidebar + .main)
+   ===================================================================== */
+body[data-tool="color"] .app,
+body[data-tool="iconos"] .app { padding-bottom: 0; }
+
+body[data-tool="color"] .main,
+body[data-tool="iconos"] .main { padding-bottom: var(--dock-band); }
+
+body[data-tool="color"] .toast { bottom: calc(var(--dock-band) + 4px); }
+
+@media (min-width: 861px) {
+  /* El selector se centra en el área de trabajo, no en la ventana */
+  body[data-tool="color"] .tools-dock,
+  body[data-tool="iconos"] .tools-dock {
+    left: calc(50% + (var(--shell-sidebar) + var(--shell-pad)) / 2);
+  }
+  body[data-tool="color"] .main { min-height: calc(100vh - var(--shell-pad)); }
+  body[data-tool="iconos"] .sidebar { min-height: calc(100vh - 2 * var(--shell-pad)); }
+}
+
+/* =====================================================================
+   Patrones (aplicación a pantalla completa, con su propio dock)
+   ===================================================================== */
+body[data-tool="patrones"] .brand-block p { margin-top: 8px; }
+body[data-tool="patrones"] .brand-block h1 { margin: 0 0 0; }
+
+/* La barra lateral y el crédito no entran animados: quedan fijos entre herramientas */
+body[data-tool="patrones"] .sidebar,
+body[data-tool="patrones"] .bong-credit {
+  animation: none;
+  opacity: 1 !important;
+}
+
+@media (min-width: 921px) {
+  body[data-tool="patrones"] .tools-dock {
+    left: calc(50% + (var(--shell-sidebar) + var(--shell-pad)) / 2);
+  }
+  /* Misma barra lateral que las otras dos: 340 de ancho y de arriba a abajo.
+     La vista previa y el dock de formato quedan en la columna de trabajo, y la
+     última fila reserva el lugar del selector. */
+  body[data-tool="patrones"] .app-shell {
+    grid-template-columns: var(--shell-sidebar) minmax(0, 1fr) !important;
+    grid-template-rows: minmax(0, 1fr) auto calc(var(--dock-height) - 10px);
+    gap: var(--shell-pad);
+    padding: var(--shell-pad);
+  }
+  body[data-tool="patrones"] .sidebar {
+    grid-column: 1 !important;
+    grid-row: 1 / -1 !important;
+    padding: 28px 6px 24px 24px;
+  }
+  body[data-tool="patrones"] .preview-module {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    padding: 0;
+  }
+  body[data-tool="patrones"] .control-dock {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+  }
+}
+
+@media (max-width: 920px) {
+  /* Apilado: una sola columna al ancho (el original dejaba la barra en 312 px) */
+  body[data-tool="patrones"] .app-shell {
+    grid-template-columns: minmax(0, 1fr) !important;
+    padding: 16px 16px var(--dock-band);
+    gap: 16px;
+  }
+}
+@media (max-width: 860px) {
+  body[data-tool="iconos"] .app { padding: 16px 16px 0; gap: 16px; }
+}
+
+/* Pantallas bajas: la paleta de color se compacta para que entren las dos filas */
+@media (min-width: 861px) and (max-height: 960px) {
+  body[data-tool="color"] .color-card .swatch { min-height: 108px; }
+  body[data-tool="color"] .color-card .code-row { padding-top: 7px; padding-bottom: 7px; }
+}
+
+/* =====================================================================
+   Celular: el selector pasa a ser una barra de pestañas
+   ===================================================================== */
+@media (max-width: 620px) {
+  :root { --shell-pad: 12px; }
+  .tools-dock {
+    left: var(--shell-pad);
+    right: var(--shell-pad);
+    transform: none;
+  }
+  .tools-dock a {
+    flex: 1;
+    justify-content: center;
+    padding: 0 8px;
+    gap: 6px;
+  }
+  .bong-credit {
+    right: var(--shell-pad);
+    bottom: calc(var(--shell-pad) + var(--dock-height) + 10px);
+  }
+  body[data-tool="color"] .toast { bottom: calc(var(--dock-band) + 44px); }
+  body[data-tool="color"] .main,
+  body[data-tool="iconos"] .main { padding-bottom: calc(var(--dock-band) + 44px); }
+  body[data-tool="patrones"] .app-shell { padding: 16px 16px calc(var(--dock-band) + 44px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
+}

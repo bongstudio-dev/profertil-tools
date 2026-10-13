@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tools Profertil · Color</title>
+  <meta name="description" content="La paleta de marca de Profertil con sus códigos HEX, RGB, CMYK y Pantone listos para copiar, y las reglas de combinación." />
+  <link rel="icon" type="image/svg+xml" href="../shared/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Familjen+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="../shared/shell.css" />
+</head>
+<body data-tool="color">
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <header class="brand">
+        <span class="eyebrow">Tools Profertil</span>
+        <h1 class="brand-title">Color<br />Browser</h1>
+        <p class="muted">Copiá los códigos de la paleta de marca y elegí una combinación que ya funciona.</p>
+      </header>
+
+      <nav class="categories" id="views" aria-label="Secciones"></nav>
+
+      <button class="export-all" id="downloadAse" title="Muestras para Illustrator, InDesign y Photoshop">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 3v12m0 0l-4-4m4 4l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 17v2a2 2 0 002 2h10a2 2 0 002-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Descargar muestras (.ase)
+      </button>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      <div class="toolbar">
+        <div class="toolbar-info">
+          <span class="eyebrow" id="currentView">Paleta completa</span>
+          <span class="count-chip" id="countChip">8 colores</span>
+        </div>
+        <div class="toolbar-format">
+          <span class="format-label">Copiar en</span>
+          <div class="pill-group" id="formatPills" role="group" aria-label="Formato al copiar">
+            <button class="pill active" data-format="hex">HEX</button>
+            <button class="pill" data-format="rgb">RGB</button>
+            <button class="pill" data-format="cmyk">CMYK</button>
+            <button class="pill" data-format="pms">Pantone</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vista: paleta completa -->
+      <section class="view" id="view-paleta" data-view="paleta">
+        <div class="grid" id="paletteGrid"></div>
+      </section>
+
+      <!-- Vista: combinaciones -->
+      <section class="view" id="view-combos" data-view="combos" hidden>
+        <div class="panel">
+          <div class="stage-head">
+            <div class="pill-group" id="levelPills" role="group" aria-label="Nivel de paleta">
+              <button class="pill active" data-level="primaria">Primaria</button>
+              <button class="pill" data-level="secundarias">Secundarias</button>
+              <button class="pill" data-level="terciarias">Terciarias</button>
+            </div>
+            <p class="stage-rule" id="levelRule"></p>
+          </div>
+
+          <div class="combo-chips" id="comboChips" role="group" aria-label="Combinaciones"></div>
+
+          <div class="stage" id="stage">
+            <div class="pie-box">
+            <svg class="pie" id="pie" viewBox="0 0 200 200" role="img" aria-label="Proporciones de la combinación">
+              <g class="pie-group" id="pieGroup">
+                <!-- Disco del color dominante por debajo y el dominante arriba de todo: tapan los filos entre porciones -->
+                <circle class="pie-base" id="pieBase" cx="100" cy="100" r="99.4" />
+                <circle class="slice" data-i="1" cx="100" cy="100" r="50" pathLength="100" />
+                <circle class="slice" data-i="2" cx="100" cy="100" r="50" pathLength="100" />
+                <circle class="slice" data-i="0" cx="100" cy="100" r="50" pathLength="100" />
+              </g>
+            </svg>
+            </div>
+            <div class="legend" id="legend"></div>
+          </div>
+
+          <div class="stage-foot">
+            <button class="btn btn-ghost btn-inline" id="copyCombo">Copiar combinación</button>
+            <button class="switch" id="marfilToggle" role="switch" aria-checked="false">
+              <span class="switch-track"><span class="switch-knob"></span></span>
+              Sobre fondo Marfil
+            </button>
+          </div>
+        </div>
+        <p class="tip">Las proporciones son guías, no reglas rígidas. Adaptalas a tu pieza manteniendo la jerarquía: siempre hay un color que manda.</p>
+      </section>
+
+      <!-- Vista: color y texto -->
+      <section class="view" id="view-texto" data-view="texto" hidden>
+        <div class="grid grid-text" id="textGrid"></div>
+        <p class="tip">Sobre un fondo de color, el texto va en blanco, en Marfil o en su complementario. Verificá siempre el contraste antes de aplicar una combinación.</p>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+    <span class="toast-dot" id="toastDot"></span>
+    <span id="toastText">Copiado</span>
+  </div>
+
+  <!-- Selector de herramienta: igual en las tres páginas -->
+  <nav class="tools-dock" aria-label="Tools Profertil">
+    <a href="../color/" aria-current="page"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="2"/><path d="M12 3.5V12h8.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Color</a>
+    <a href="../iconos/"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="2.2" stroke="currentColor" stroke-width="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2.2" stroke="currentColor" stroke-width="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2.2" stroke="currentColor" stroke-width="2"/><circle cx="17" cy="17" r="3.5" stroke="currentColor" stroke-width="2"/></svg>Íconos</a>
+    <a href="../patrones/"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3c3.4 3.4 3.4 8.6 0 12-3.4-3.4-3.4-8.6 0-12z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M4 13c5 .3 7.3 3.4 8 8-5-.3-8-3-8-8zM20 13c-5 .3-7.3 3.4-8 8 5-.3 8-3 8-8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Patrones</a>
+  </nav>
+  <script type="speculationrules">{"prerender":[{"urls":["../iconos/","../patrones/"],"eagerness":"moderate"}]}</script>
+
+  <a class="bong-credit" href="https://bongstudio.ar" target="_blank" rel="noreferrer">
+    <span>Desarrollado por</span>
+    <svg viewBox="0 0 66 78" aria-hidden="true">
+      <path d="M58.4946 5.4015C61.7586 8.7101 63.8526 13.3115 63.8526 18.3591C63.8526 23.4066 61.7586 27.9926 58.4946 31.3166C55.1843 34.6867 50.642 36.7181 45.5916 36.7181C40.5412 36.7181 35.9989 34.6714 32.7347 31.3166C29.4704 28.008 27.3763 23.4066 27.3763 18.3591C27.3763 13.3115 29.4704 8.7256 32.7347 5.4015C35.9989 2.0313 40.5874 0 45.5916 0C50.5958 0 55.1843 2.0467 58.4946 5.4015Z"/>
+      <path d="M21.9571 5.61687C22.7731 7.75597 22.7731 10.3105 21.9571 12.4958C21.1872 14.4348 19.8168 16.066 17.7689 16.9278C28.2238 18.7591 27.6234 36.1948 15.875 36.1948H0.015625V0.569275H14.4585C18.3387 0.569275 20.833 2.75457 21.9571 5.61687Z"/>
+      <path d="M0 40.565L0.0307999 76.7753H13.4728H25.1749V41.0268H13.4728V56.1233L0.600498 40.565H0Z"/>
+      <path d="M46.4542 58.7706L55.9547 42.3352C53.3984 40.9963 50.5037 40.2423 47.4242 40.2423C37.2464 40.2423 28.9934 48.4907 28.9934 58.6629C28.9934 68.8353 37.2464 77.0833 47.4242 77.0833C57.6017 77.0833 65.8087 68.8963 65.8547 58.7552H46.4542V58.7706Z"/>
+    </svg>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>
