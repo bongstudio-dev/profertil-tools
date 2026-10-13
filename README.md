@@ -33,11 +33,16 @@ Cada herramienta es una página propia, con su `index.html`, `styles.css` y `scr
 
 La portada (`index.html`) redirige a `color/` y conserva el ancla, así que `…/profertil-tools/#combinaciones` abre esa vista.
 
+## Firma del estudio
+
+Cada página lleva al principio del HTML un comentario con el logo de Bong en ASCII, una nota y los créditos, y lo mismo sale en la consola del navegador (`shared/firma.js`). El texto está en `shared/firma.txt`; después de editarlo, `python3 shared/firmar.py` lo vuelve a poner en todas las páginas.
+
 ## Para sumar otra herramienta
 
 1. Carpeta nueva con su `index.html`, que cargue `../shared/shell.css` al final y tenga `<body data-tool="nombre">`.
 2. Copiar el bloque `<nav class="tools-dock">` y agregar el link nuevo en todas las páginas.
-3. Si la estructura no es `.app > .sidebar + .main`, sumar sus reglas en `shared/shell.css`.
+3. Correr `python3 shared/firmar.py` para firmar la página nueva.
+4. Si la estructura no es `.app > .sidebar + .main`, sumar sus reglas en `shared/shell.css`.
 
 ## De dónde sale cada una
 
