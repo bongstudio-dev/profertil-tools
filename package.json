@@ -2,10 +2,11 @@
   "name": "profertil-tools",
   "version": "1.0.0",
   "private": true,
-  "description": "Tools Profertil: color, íconos y patrones del sistema de marca Profertil 2026 en un solo sitio.",
+  "description": "Tools Profertil: color, íconos, formas y patrones del sistema de marca Profertil 2026 en un solo sitio.",
   "scripts": {
     "dev": "python3 -m http.server 5056",
-    "build:iconos": "python3 iconos/build-data.py"
+    "build:iconos": "python3 iconos/build-data.py",
+    "build:formas": "python3 formas/build-data.py"
   },
   "author": "Bong (https://bongstudio.ar)",
   "license": "UNLICENSED"
