@@ -38,10 +38,11 @@ Cada módulo es una página propia con la misma barra lateral, el mismo selector
 
 3. **Piel.** Los colores de la interfaz (azul de las píldoras, verde de los botones, marfil de fondo) y la fuente de la interfaz pasan a los de la marca nueva: están en el `:root` de cada `styles.css` y en `shared/shell.css`.
 4. **Selector.** Sacar los módulos que no apliquen del bloque `<nav class="tools-dock">` de cada página.
-5. **Firma.** Cambiar el nombre del proyecto en `shared/firma.txt` y correr `python3 shared/firmar.py` (ver la memoria `bong-firma-codigo`).
-6. **Probar.** Cada página carga sin errores en consola; cada descarga baja el archivo correcto; en celular no hay scroll horizontal y el selector entra; pasar de un módulo a otro deja quieta la barra lateral.
-7. **Publicar.** Va en `entregables.bongstudio.ar/<cliente>/kit-de-marca/`, público y sin Cloudflare Access (ver el `LEEME.md` de `bong-entregables`): sumar al `publicar.sh` de ese sitio la copia del repo, como la de Profertil.
-8. **Entregar.** Link al cliente, y si reemplaza algo (un link viejo, una carpeta de SharePoint), actualizar esa carpeta también.
+5. **Analytics.** Todos los kits miden en la misma propiedad de GA4 ("Kits de marca"): en `shared/analytics.js` solo se cambia `MARCA`. En los informes se separan por el parámetro `marca` o por la ruta.
+6. **Firma.** Cambiar el nombre del proyecto en `shared/firma.txt` y correr `python3 shared/firmar.py` (ver la memoria `bong-firma-codigo`).
+7. **Probar.** Cada página carga sin errores en consola; cada descarga baja el archivo correcto; en celular no hay scroll horizontal y el selector entra; pasar de un módulo a otro deja quieta la barra lateral.
+8. **Publicar.** Va en `entregables.bongstudio.ar/<cliente>/kit-de-marca/`, público y sin Cloudflare Access (ver el `LEEME.md` de `bong-entregables`): sumar al `publicar.sh` de ese sitio la copia del repo, como la de Profertil.
+9. **Entregar.** Link al cliente, y si reemplaza algo (un link viejo, una carpeta de SharePoint), actualizar esa carpeta también.
 
 ## Lo que falta para que sea un producto
 

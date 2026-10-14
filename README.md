@@ -51,6 +51,20 @@ La portada (`index.html`) redirige a `color/` y conserva el ancla, así que `…
 
 Qué es este producto y cómo se replica para otra marca: ver **[KIT-DE-MARCA.md](KIT-DE-MARCA.md)**.
 
+## Analytics
+
+`shared/analytics.js` carga GA4 (propiedad **Kits de marca**, ID `G-D9VR4GS5WZ`, cuenta Bong Studio) y mide desde afuera, sin tocar el código de cada módulo:
+
+| Evento | Cuándo | Parámetros |
+|---|---|---|
+| `page_view` | Cada módulo que se abre (lo manda GA) | `marca`, `modulo` |
+| `descarga` | Cualquier link con `download`, también los que arman los scripts | `archivo`, `formato` |
+| `copia` | Todo lo que pasa por el portapapeles | `valor` (ej. `#003DA5`) |
+| `busqueda` | Lo que se escribe en el buscador de íconos o formas, al dejar de tipear | `termino` |
+| `vista` | Cambio de `#ancla` dentro de un módulo | `vista` |
+
+Todos llevan `marca` (`profertil`) y `modulo` (el `data-tool` del `<body>`). Solo mide en `bongstudio.ar`: en local y en las previews no manda nada. La descarga automática de GA (medición mejorada) está apagada para no contar dos veces.
+
 ## Firma del estudio
 
 Cada página lleva al principio del HTML un comentario con el logo de Bong en ASCII, una nota y los créditos, y lo mismo sale en la consola del navegador (`shared/firma.js`). El texto está en `shared/firma.txt`; después de editarlo, `python3 shared/firmar.py` lo vuelve a poner en todas las páginas.
