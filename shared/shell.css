@@ -76,32 +76,61 @@
   bottom: calc(var(--shell-pad) + 7px);
 }
 
-/* ---------- Encabezado de la barra lateral, igual en las tres ---------- */
+/* ---------- Encabezado de la barra lateral, igual en todas ---------- */
 .sidebar .eyebrow { color: rgba(6, 32, 79, 0.66); }
 
-/* =====================================================================
-   Color, Íconos y Formas (misma estructura: .app > .sidebar + .main)
-   ===================================================================== */
-body[data-tool="color"] .app,
-body[data-tool="formas"] .app,
-body[data-tool="iconos"] .app { padding-bottom: 0; }
+/* ---------- Piezas compartidas de la barra lateral ---------- */
+/* Notas de reglas y botón secundario de descarga (Logos, Tipografía, Íconos, Formas) */
+.rules { display: flex; flex-direction: column; gap: 10px; }
+.rules .eyebrow { padding: 0 4px; }
+.rule {
+  padding: 12px 14px;
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius-md);
+  background: var(--background);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+.rule strong { display: block; font-weight: 600; margin-bottom: 2px; }
+.rule span { color: var(--muted); }
 
-body[data-tool="color"] .main,
-body[data-tool="formas"] .main,
-body[data-tool="iconos"] .main { padding-bottom: var(--dock-band); }
+
+.export-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px;
+  border: 1px solid var(--stroke);
+  border-radius: 999px;
+  background: var(--background);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+.export-secondary:hover { transform: translateY(-1px); border-color: rgba(6, 32, 79, 0.18); }
+.export-secondary svg { width: 18px; height: 18px; }
+.sidebar a.export-all { text-decoration: none; }
+
+/* =====================================================================
+   Todas menos Patrones comparten estructura: .app > .sidebar + .main
+   ===================================================================== */
+body:not([data-tool="patrones"]) .app { padding-bottom: 0; }
+body:not([data-tool="patrones"]) .main { padding-bottom: var(--dock-band); }
 
 body[data-tool="color"] .toast { bottom: calc(var(--dock-band) + 4px); }
 
 @media (min-width: 861px) {
   /* El selector se centra en el área de trabajo, no en la ventana */
-  body[data-tool="color"] .tools-dock,
-  body[data-tool="formas"] .tools-dock,
-  body[data-tool="iconos"] .tools-dock {
+  body:not([data-tool="patrones"]) .tools-dock {
     left: calc(50% + (var(--shell-sidebar) + var(--shell-pad)) / 2);
   }
   body[data-tool="color"] .main { min-height: calc(100vh - var(--shell-pad)); }
-  body[data-tool="formas"] .sidebar,
-  body[data-tool="iconos"] .sidebar { min-height: calc(100vh - 2 * var(--shell-pad)); }
+  body:not([data-tool="patrones"]):not([data-tool="color"]) .sidebar { min-height: calc(100vh - 2 * var(--shell-pad)); }
 }
 
 /* =====================================================================
@@ -155,8 +184,7 @@ body[data-tool="patrones"] .bong-credit {
   }
 }
 @media (max-width: 860px) {
-  body[data-tool="formas"] .app,
-  body[data-tool="iconos"] .app { padding: 16px 16px 0; gap: 16px; }
+  body:not([data-tool="patrones"]):not([data-tool="color"]) .app { padding: 16px 16px 0; gap: 16px; }
 }
 
 /* Pantallas bajas: la paleta de color se compacta para que entren las dos filas */
@@ -175,22 +203,24 @@ body[data-tool="patrones"] .bong-credit {
     right: var(--shell-pad);
     transform: none;
   }
+  /* Con seis herramientas no entran los nombres: solo íconos, y el nombre en la activa */
   .tools-dock a {
-    flex: 1;
+    flex: 1 1 0;
     justify-content: center;
     padding: 0 4px;
     gap: 5px;
     font-size: 0.82rem;
   }
-  .tools-dock svg { width: 16px; height: 16px; }
+  .tools-dock a span { display: none; }
+  .tools-dock a[aria-current="page"] { flex: 2.4 1 0; }
+  .tools-dock a[aria-current="page"] span { display: inline; }
+  .tools-dock svg { width: 18px; height: 18px; }
   .bong-credit {
     right: var(--shell-pad);
     bottom: calc(var(--shell-pad) + var(--dock-height) + 10px);
   }
   body[data-tool="color"] .toast { bottom: calc(var(--dock-band) + 44px); }
-  body[data-tool="color"] .main,
-  body[data-tool="formas"] .main,
-  body[data-tool="iconos"] .main { padding-bottom: calc(var(--dock-band) + 44px); }
+  body:not([data-tool="patrones"]) .main { padding-bottom: calc(var(--dock-band) + 44px); }
   body[data-tool="patrones"] .app-shell { padding: 16px 16px calc(var(--dock-band) + 44px); }
 }
 

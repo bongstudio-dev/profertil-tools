@@ -4,9 +4,11 @@ Las herramientas del **Sistema de marca Profertil 2026** en un solo sitio, con u
 
 | Herramienta | Carpeta | Qué hace |
 |---|---|---|
+| Logo Browser | `logos/` | Los logos oficiales (6 versiones) y los del 25 aniversario (8), con sus reglas de uso. Descarga SVG, PDF y PNG de 2048 px, sueltos o en ZIP. |
 | Color Browser | `color/` | Paleta con códigos HEX, RGB, CMYK y Pantone para copiar, combinaciones en torta y usos de color sobre texto. Descarga de muestras `.ase`. |
-| Icon Browser | `iconos/` | Los 194 íconos de marca: búsqueda, recoloreo y exportación SVG, PNG y ZIP. |
-| Shape Browser | `formas/` | Las 18 formas del sistema, sin fondo (7 colores) o con fondo (badge), con exportación SVG, PNG y ZIP. |
+| Type Browser | `tipografia/` | Familjen Grotesk y DM Sans: muestrario con texto de prueba, jerarquía (H1 a Caption), lineamientos y las fuentes en ZIP con su licencia OFL. |
+| Icon Browser | `iconos/` | Los 194 íconos de marca: búsqueda, recoloreo y exportación SVG, PNG y ZIP. Descarga del `.ai` con los 194. |
+| Shape Browser | `formas/` | Las 18 formas del sistema, sin fondo (7 colores) o con fondo (badge), con exportación SVG, PNG y ZIP. Descarga del `.ai` con todas (una mesa de trabajo por color y los badges). |
 | Pattern Generator | `patrones/` | Patrones con las 18 formas del sistema, con exportación SVG, PNG y JPG. |
 
 Publicado en https://bongstudio-dev.github.io/profertil-tools/
@@ -26,12 +28,14 @@ python3 -m http.server 5056     # o: npm run dev
 
 Cada herramienta es una página propia, con su `index.html`, `styles.css` y `script.js`. Lo que las hace sentir una sola está en **`shared/shell.css`**, que se carga después del CSS de cada una:
 
-- **Selector de herramienta** (`.tools-dock`): el mismo bloque de HTML en las cuatro páginas, fijo abajo y centrado en el área de trabajo. En celular pasa a ser una barra de pestañas.
+- **Selector de herramienta** (`.tools-dock`): el mismo bloque de HTML en todas las páginas, fijo abajo y centrado en el área de trabajo. En celular pasa a ser una barra de pestañas.
 - **Barra lateral**: misma posición, ancho y alto en todas (340 px, de arriba a abajo).
 - **Crédito** y espacio libre abajo para que el contenido no quede tapado por el selector.
 - **Transición entre páginas**: `@view-transition { navigation: auto; }`. El navegador funde una herramienta con la otra y deja quietos la barra lateral, el selector y el crédito; la pastilla activa se desliza. Donde el navegador no lo soporta, cambia de página sin animación.
 
 La portada (`index.html`) redirige a `color/` y conserva el ancla, así que `…/profertil-tools/#combinaciones` abre esa vista.
+
+Qué es este producto y cómo se replica para otra marca: ver **[KIT-DE-MARCA.md](KIT-DE-MARCA.md)**.
 
 ## Firma del estudio
 
@@ -45,6 +49,11 @@ Cada página lleva al principio del HTML un comentario con el logo de Bong en AS
 4. Si la estructura no es `.app > .sidebar + .main`, sumar sus reglas en `shared/shell.css`.
 
 ## De dónde sale cada una
+
+- `logos/archivos/`: SVG y PDF de los entregables oficiales (`Entregables/01. Logos/01. Profertil` y `25 aniversario/Entregables/01. Logo 25/01. Logos`). El PNG se arma en el navegador desde el SVG. Notas y tamaños mínimos: manual v1.1.4, sección 02.
+- `tipografia/archivos/`: las dos familias tal como están en `Entregables/02. Tipografías`, comprimidas. Jerarquía y lineamientos: manual, sección 04.
+- `iconos/descargas/Profertil_Iconos_Sistema_2026.ai`: el .ai entregado a Profertil el 30/06/2026.
+- `formas/descargas/Profertil_Formas_Sistema_2026.ai`: se genera con `python3 formas/build-ai.py` (necesita Illustrator).
 
 - `color/`: los datos están al principio de `color/script.js` y salen del Manual de Marca v1.1.4 (p. 45 a 48).
 - `iconos/`: copia del repo `profertil-icon-browser` al 13/10/2026. `icons-data.js` se regenera con `build-data.py`.
