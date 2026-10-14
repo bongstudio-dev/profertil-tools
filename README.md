@@ -68,6 +68,7 @@ Cada página lleva al principio del HTML un comentario con el logo de Bong en AS
 - `tipografia/archivos/`: las dos familias tal como están en `Entregables/02. Tipografías`, comprimidas. Jerarquía y lineamientos: manual, sección 04.
 - `iconos/descargas/Profertil_Iconos_Sistema_2026.ai`: el .ai entregado a Profertil el 30/06/2026.
 - `formas/descargas/Profertil_Formas_Sistema_2026.ai`: se genera con `python3 formas/build-ai.py` (necesita Illustrator).
+- `docs/lamina-paleta.html`: fuente de `Profertil_Paleta.png` de `Entregables/05. Colores`. Se abre en Chrome a 1600 x 2000 y se captura. No se publica.
 
 - `color/`: los datos están al principio de `color/script.js` y salen del Manual de Marca v1.1.4 (p. 45 a 48).
 - `iconos/`: copia del repo `profertil-icon-browser` al 13/10/2026. `icons-data.js` se regenera con `build-data.py`.

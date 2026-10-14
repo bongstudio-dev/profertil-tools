@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Familjen+Grotesk:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1600px; height: 2000px; background: #FFFEEF; color: #06204f; font-family: "DM Sans", sans-serif; padding: 96px 88px 80px; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; }
+  .eyebrow { font-size: 20px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(6,32,79,.66); }
+  h1 { font-family: "Familjen Grotesk", sans-serif; font-weight: 600; font-size: 104px; letter-spacing: -0.03em; line-height: 1; margin: 18px 0 20px; }
+  .lead { font-size: 27px; line-height: 1.45; color: rgba(6,32,79,.72); max-width: 1040px; }
+  .grid { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr 1fr; gap: 24px; margin: 64px 0 56px; }
+  .card { background: #fff; border: 1px solid rgba(6,32,79,.06); border-radius: 32px; padding: 14px; display: flex; flex-direction: column; }
+  .sw { flex: 1; border-radius: 22px; padding: 26px; display: flex; flex-direction: column; justify-content: space-between; color: #fff; }
+  .sw.light { color: #06204f; box-shadow: inset 0 0 0 1px rgba(6,32,79,.09); }
+  .role { font-size: 15px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .8; }
+  .name { font-family: "Familjen Grotesk", sans-serif; font-weight: 600; font-size: 46px; letter-spacing: -0.02em; line-height: 1; }
+  dl { display: grid; grid-template-columns: 96px 1fr; row-gap: 14px; padding: 26px 16px 16px; font-size: 22px; font-variant-numeric: tabular-nums; }
+  dt { font-size: 14px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(6,32,79,.6); align-self: center; }
+  dd { font-weight: 500; white-space: nowrap; }
+  footer { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; font-size: 22px; line-height: 1.45; color: rgba(6,32,79,.72); }
+  footer strong { color: #003DA5; font-weight: 600; }
+  footer .r { text-align: right; white-space: nowrap; }
+</style>
+</head>
+<body>
+  <span class="eyebrow">Profertil · Sistema de marca 2026</span>
+  <h1>Paleta completa</h1>
+  <p class="lead">Los 8 colores del sistema con sus códigos técnicos. Usá siempre estos valores exactos para mantener la consistencia en todas las piezas de Profertil.</p>
+  <div class="grid" id="grid"></div>
+  <footer>
+    <div>Para copiar los códigos y ver las combinaciones:<br /><strong>entregables.bongstudio.ar/profertil/kit-de-marca/color</strong></div>
+    <div class="r">Manual de Marca v1.1.4 · sección 03.02.03</div>
+  </footer>
+<script>
+const C = [
+  ["Azul","Primario","#003DA5","0, 61, 165","100, 63, 0, 35","293C"],
+  ["Celeste","Secundario","#4086FF","64, 134, 255","75, 47, 0, 0","PQ 2727C"],
+  ["Verde","Primario","#2D8035","45, 128, 53","65, 0, 59, 50","356C"],
+  ["Verde Claro","Secundario","#5EB53A","94, 181, 58","48, 0, 68, 29","361C"],
+  ["Amarillo","Primario","#EABA2C","234, 186, 44","0, 21, 81, 8","7408C"],
+  ["Naranja","Secundario","#E57F19","229, 127, 25","0, 45, 89, 10","138C"],
+  ["Marfil","Soporte","#FFFEEF","255, 254, 239","0, 0, 10, 0","P 1-2 U"],
+  ["Terra","Auxiliar","#8A4818","138, 72, 24","0, 48, 83, 46","2315C"],
+];
+document.getElementById("grid").innerHTML = C.map(([n, r, hex, rgb, cmyk, pms]) => `
+  <div class="card">
+    <div class="sw${n === "Marfil" ? " light" : ""}" style="background:${hex}"><span class="role">${r}</span><span class="name">${n}</span></div>
+    <dl><dt>HEX</dt><dd>${hex}</dd><dt>RGB</dt><dd>${rgb}</dd><dt>CMYK</dt><dd>${cmyk}</dd><dt>Pantone</dt><dd>${pms}</dd></dl>
+  </div>`).join("");
+</script>
+</body>
+</html>
