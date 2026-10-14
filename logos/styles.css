@@ -509,7 +509,7 @@ html, body {
 .logo-thumb.is-dark { background: var(--azul-gradient); }
 .logo-thumb img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .logo-thumb.is-tall img { width: 70%; }
-.logo-caption { display: flex; flex-direction: column; gap: 2px; padding: 0 4px; }
+.logo-caption { display: flex; flex-direction: column; gap: 2px; padding: 0 4px; align-self: stretch; text-align: left; }
 .logo-caption strong { font-size: 0.95rem; font-weight: 600; }
 .logo-caption small { font-size: 0.8rem; color: var(--muted); }
 
