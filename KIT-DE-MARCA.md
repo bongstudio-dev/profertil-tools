@@ -24,7 +24,7 @@ Cada módulo es una página propia con la misma barra lateral, el mismo selector
 
 ## Cómo se arma uno para otra marca
 
-1. **Repo nuevo.** Duplicar este repo como `<cliente>-tools` en `bongstudio-dev`, con GitHub Pages desde `main`.
+1. **Repo nuevo.** Duplicar este repo como `<cliente>-kit-de-marca` en `bongstudio-dev` (es la fuente; no se publica desde GitHub).
 2. **Datos de la marca.** Reemplazar los de Profertil:
 
    | Módulo | Dónde están los datos |
@@ -40,13 +40,14 @@ Cada módulo es una página propia con la misma barra lateral, el mismo selector
 4. **Selector.** Sacar los módulos que no apliquen del bloque `<nav class="tools-dock">` de cada página.
 5. **Firma.** Cambiar el nombre del proyecto en `shared/firma.txt` y correr `python3 shared/firmar.py` (ver la memoria `bong-firma-codigo`).
 6. **Probar.** Cada página carga sin errores en consola; cada descarga baja el archivo correcto; en celular no hay scroll horizontal y el selector entra; pasar de un módulo a otro deja quieta la barra lateral.
-7. **Entregar.** Link al cliente, y si reemplaza algo (un link viejo, una carpeta de SharePoint), actualizar esa carpeta también.
+7. **Publicar.** Va en `entregables.bongstudio.ar/<cliente>/kit-de-marca/`, público y sin Cloudflare Access (ver el `LEEME.md` de `bong-entregables`): sumar al `publicar.sh` de ese sitio la copia del repo, como la de Profertil.
+8. **Entregar.** Link al cliente, y si reemplaza algo (un link viejo, una carpeta de SharePoint), actualizar esa carpeta también.
 
 ## Lo que falta para que sea un producto
 
 - **Los tokens de la interfaz están repetidos** en el `styles.css` de cada módulo. Para cambiar de marca en un solo lugar hay que moverlos a `shared/`.
 - **Los datos de la marca viven dentro de cada `script.js`.** El paso siguiente es un único archivo de marca (`marca.json`) que lean todos los módulos.
-- **Nombre y dominio** del producto, por definir.
+- **Nombre y dirección**: se llama "Kit de marca" y vive en `entregables.bongstudio.ar/<cliente>/kit-de-marca/` (decidido el 14/10/2026).
 
 ---
 
